@@ -3,17 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PlayerArrojadizo
+  - PlayerDash
+  - PlayerAttack
+  - Mayotov
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Piso
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Enemy
+  - AtaquePlayer
+  - Player
   - 
   - 
   - 
