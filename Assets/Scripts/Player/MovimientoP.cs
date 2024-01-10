@@ -8,7 +8,6 @@ using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 
 public class MovimientoP : MonoBehaviour
@@ -66,10 +65,6 @@ public class MovimientoP : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-
-    }
     private void LateUpdate()
     {
         if (apuntando) { verAlMouse(); }//ani
@@ -125,7 +120,6 @@ public class MovimientoP : MonoBehaviour
                 Vector3 eulerAngle = new Vector3(0, 0, 0);
                 Quaternion targetRotation = Quaternion.Euler(eulerAngle);
                 contenedroCabez.localRotation = Quaternion.Slerp(contenedroCabez.localRotation, targetRotation, Time.deltaTime * VelocidadRegresoCabeza);
-                //contenedroCabez.localRotation = Quaternion.Slerp(contenedroCabez.localRotation, quaternion.identity, Time.deltaTime * VelocidadRegresoCabeza);
             }
 
 
@@ -142,7 +136,7 @@ public class MovimientoP : MonoBehaviour
     {
         var direccion = (mousePos - (Vector2)contenedroCabez.position).normalized;
 
-        // Aplicar rotación al arma
+        // Aplicar rotación al arma (cambiar si son arrojables o no /PENDIENTE/)
 
         //mandar rotaciones a las armas
         armas.cacharRotacion(direccion);
@@ -198,7 +192,7 @@ public class MovimientoP : MonoBehaviour
         if (collision.transform.CompareTag("Enemy"))
         {
 
-            Debug.Log("Player Dañado");
+            Debug.Log("Player Dañado");//Restar vida en playerstats
         }
     }
     #endregion

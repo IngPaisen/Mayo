@@ -68,12 +68,7 @@ public class PlayerSaltoE : MonoBehaviour
                 {
                     Physics2D.IgnoreCollision(GetComponent<Collider2D>(), item.GetComponent<Collider2D>(), true);//->descativa la coliscion con esa plataforma
 
-                    /*
-                     SE COLCOA EN UN SCRIPT PARA LAS PLATAFORMASEN EL ONTRGIGEREXTI
-                                                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), item.GetComponent<Collider2D>(), false);//->Activa la coliscion con esa plataforma
-
-                        
-                     */
+                  
                 }
             }
 
