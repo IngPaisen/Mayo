@@ -33,10 +33,13 @@ public class granada : MonoBehaviour
             if (collider.CompareTag("Enemy")) {
                 GameObject objeto = collider.gameObject;
 
-                //objeto.SetActive(false); //-> para hacer el objet pool
+
                 Destroy(objeto);
             }
 
+            if (collider.CompareTag("BrakeableWall")) {
+                collider.GetComponent<MurosRompibles>().destruirMuro();   
+            }
             // Aquí puedes realizar acciones con cada objeto colisionado dentro del radio de explosión
             // Por ejemplo: destruir el objeto, aplicar fuerzas, etc.
             // Ejemplo: objeto.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 10.0f, ForceMode2D.Impulse);

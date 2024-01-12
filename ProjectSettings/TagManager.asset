@@ -9,6 +9,7 @@ TagManager:
   - PlayerAttack
   - Mayotov
   - Enemy
+  - BrakeableWall
   layers:
   - Default
   - TransparentFX

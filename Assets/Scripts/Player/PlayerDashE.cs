@@ -13,6 +13,7 @@ public class PlayerDashE : MonoBehaviour
     MovimientoP playerMovement;
 
     [Header("Dash")]
+    [SerializeField] TrailRenderer trail;
     [SerializeField] bool dashDesbloqueado;
     [SerializeField] bool danioDashEquipado;
     [SerializeField] float dashCooldown; // Duración del dash
@@ -69,6 +70,7 @@ public class PlayerDashE : MonoBehaviour
 
     private IEnumerator HacerDash()
     {
+        trail.emitting=true;
         //anim.SetBool("Dashing", true);
         isdashing = true;
         Debug.Log("dash");
@@ -83,6 +85,7 @@ public class PlayerDashE : MonoBehaviour
 
         yield return new WaitForSeconds(dashDuracion);
         //colliderPlayer.enabled = true;
+        trail.emitting = false;
 
         puedeMoverse = true;
         rbplayer.gravityScale = gravedadNormal;

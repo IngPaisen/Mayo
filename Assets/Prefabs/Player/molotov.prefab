@@ -195,4 +195,4 @@ MonoBehaviour:
   boxCollider: {fileID: 8595414262976598973, guid: 8ec2f2f703a10d2489494996de5448db, type: 3}
   humo: {fileID: 7021315986635521927, guid: 17a5298b58e580646a04cdd5ed754bac, type: 3}
   explosionRadius: 6
-  damagePerSecond: 0.02
+  damagePerSecond: 0.005
