@@ -9,12 +9,13 @@ public class PlayerStatsE : MonoBehaviour
     /*                       ESTE SCRIPT CONTROLA BASICAMENTE QUE EL JUGADOR PUEDA MOVERSE (ESTE VIVO), SU SALUD, SU municion                       */
     MovimientoP playerMove;
     [Header("Vida")]
+    [SerializeField] bool botasEquipadas;
+
     [SerializeField] float vidaActual;
     [SerializeField] float vidaTotal;
     [SerializeField] bool playerVivo = true;
     [SerializeField] float mayonesaActual;
-    [Header("Daño Recibido")]
-    [SerializeField] float tiempoInvulnerable;
+    //[Header("Daño Recibido")]
     bool isInvulnerable;
 
 
@@ -64,28 +65,6 @@ public class PlayerStatsE : MonoBehaviour
     //==============================================================================================================
 
 
-    //=============================================== Collisiones ===============================================
-    #region Collisiones
-    private void OnCollisionEnter2D(Collision2D collision)//pendiente para MODIFICAR!! (CREO)
-    {
-        //if (collision.transform.CompareTag("Enemy") && vidaActual > 0 && !isInvulnerable)
-        //{
-        //    PlayerInvulnerable();
-        //    RestarVidaRebote(collision.gameObject.GetComponent<BaseEnemy>().getDanio(), collision.GetContact(0).normal);
-
-
-        //}
-        //else if (collision.transform.CompareTag("Enemy") && vidaActual <= 0)
-        //{
-        //    playerMove.setEstadoPlayer(playerVivo);
-        //}
-        //por si es dañado mpor enemigos
-
-    }
-
-    #endregion
-    //=====================================================================================================================
-
     public void PlayerInvulnerable(float tiempo)
     {
         StartCoroutine(EnableInvulnerability(tiempo));
@@ -102,15 +81,15 @@ public class PlayerStatsE : MonoBehaviour
         isInvulnerable = false;
     }
 
-    void perderControlPlayer()
-    {
-        //si al recibir daño no se puede mover
-    }
-    public void revivir()
-    {
-        vidaActual = vidaTotal;
-        playerVivo = true;
-    }
+    //void perderControlPlayer()
+    //{
+    //    //si al recibir daño no se puede mover
+    //}
+    //public void revivir()
+    //{
+    //    vidaActual = vidaTotal;
+    //    playerVivo = true;
+    //}
 
     //==================================================== Retornar Datos ====================================================
     #region return Datos
@@ -154,13 +133,21 @@ public class PlayerStatsE : MonoBehaviour
 
         vidaActual -= danioRecibido;
     }
-    public void RestarVidaRebote(float danioRecibido, Vector2 posicion)//falta mejorarlo
+    public void RestarVidaRebote(float danioRecibido, Vector2 posicion)//falta ver si si o si no
     {
-        vidaActual -= danioRecibido;
-        //anoiacion Golpe
-        playerMove.Rebote(posicion);
-        perderControlPlayer();
+        //vidaActual -= danioRecibido;
+        ////anoiacion Golpe
+        //playerMove.Rebote(posicion);
+        //perderControlPlayer();
 
+    }
+
+
+    public void enPisoDanino(float danioParaPlayer) {
+        if (!botasEquipadas) { 
+            vidaActual -= Time.deltaTime * danioParaPlayer;
+
+        }
     }
 
     public void restaMayo(float costoDisparo)
@@ -171,18 +158,19 @@ public class PlayerStatsE : MonoBehaviour
     #endregion
     //=====================================================================================================================
 
-    //=================================================== Mandar Datos ===================================================
-    #region CARGAR DATOS
-    public void setVidaTotal(float vidaRecibida)
-    {
-        vidaTotal = vidaRecibida;
 
-        vidaActual = vidaTotal;
+
+    //===================================================================================================
+    #region cachar Botas Equipadas
+
+    public void cacharBotasMejoradas(bool botas)
+    {
+        botasEquipadas = botas;
     }
 
 
 
     #endregion
-    //=====================================================================================================================
+    //===================================================================================================
 
 }

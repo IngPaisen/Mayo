@@ -33,6 +33,11 @@ public class TipoDisparo : MonoBehaviour
     [SerializeField] float potenciaDeDisparo;
     [SerializeField] Transform[] origenAtaque;
     [SerializeField] Transform contArma;
+
+
+    [Header("Si tiene impulso")]
+    [SerializeField] bool impulso;
+    [SerializeField] ImpulsoEscopeta escoepta;
     //Vector2 mousePos; //->    //INNECESARIO
     //[Header("Por Si es Melee")]
 
@@ -51,6 +56,7 @@ public class TipoDisparo : MonoBehaviour
     void Start()
     {
         if (!rafagas) { balasPorRafaga = 0; tiempoEntreDisparo = 0; }
+        if (impulso) { escoepta = GetComponent<ImpulsoEscopeta>(); }
         playerStats = GetComponentInParent<PlayerStatsE>();
         playerInput = GetComponentInParent<PlayerInput>();
         rbPlayer = GetComponentInParent<Rigidbody2D>();
@@ -125,20 +131,28 @@ public class TipoDisparo : MonoBehaviour
             float anguloEnRadianes = contArma.rotation.eulerAngles.z * Mathf.Deg2Rad;
             Vector2 direccion = new Vector2(Mathf.Cos(anguloEnRadianes), Mathf.Sin(anguloEnRadianes));
 
+            if (impulso) {
+                escoepta.impusloEscopeta();
+            }
+
             //retroceso Falta mejorarlo
             if (transforPadre.localScale.x > 0)
             {
-                rbPlayer.AddForce(-direccion * retroceso);
+                //rbPlayer.AddForce(-direccion * retroceso, ForceMode2D.Force);
+
                 rbBalaN.AddForce(origen.right * potenciaDeDisparo);
             }
             else if (transforPadre.localScale.x < 0)
             {
-                rbPlayer.AddForce(direccion * retroceso);   
+                //rbPlayer.AddForce(direccion * retroceso, ForceMode2D.Force);   
+                
+
                 rbBalaN.AddForce(origen.right * -potenciaDeDisparo/*, ForceMode2D.Impulse*/);
             }
         }
     }
 
+ 
     IEnumerator DispararRafaga()
     {
 

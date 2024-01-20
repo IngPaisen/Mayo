@@ -12,29 +12,41 @@ using UnityEngine.InputSystem;
 
 public class MovimientoP : MonoBehaviour
 {
-    PlayerInput playerInput;
+    public PlayerInput playerInput;
+    PlayerSaltoE playerSalto;
+    PlayerStatsE playerStats;
+    PlayerDashE playerDash;
     [Header("Movimiento")]
 
     [SerializeField] float velocidadPlayer;
     [SerializeField] float velocidadPlayerApuntando;
-    float velocidadActual;
+    [SerializeField] float velocidadPlayerApuntandoRifle;
+    [SerializeField] float velocidadPlayerSlowed;
+    [SerializeField]float velocidadActual;
     [SerializeField] bool sePuedeMover = true;
+    [SerializeField] bool slowed;
+  
+
     [SerializeField] Vector2 velocidadRebote;
     Rigidbody2D rbPlayer;
 
     [SerializeField] bool PlayerVivo;
-
     [Header("Apuntado")]
     //[SerializeField] GameObject mira;
     [SerializeField] Transform contenedroCabez;
     [SerializeField] float limiteUp;
     [SerializeField] float limiteDown;
     Vector2 mousePos;
-
+    bool rifleApuntando;
     bool apuntando = false;
     [SerializeField] float VelocidadRegresoCabeza;
 
     Armas armas;
+
+    [Header("EQUIPABLES")]
+    [SerializeField] bool botasEquiapdas;
+    [SerializeField] bool botasMejoradas;
+    
 
     //============================================= Start/Update ==============================================================
     #region Metodos (UNITY)
@@ -44,7 +56,11 @@ public class MovimientoP : MonoBehaviour
     {
         //recibir valore de dash, vida, velodaida, salto, etc. desde el los datos guardados
         //anim = GetComponent<Animator>();
+        
         armas = GetComponent<Armas>();
+        playerDash = GetComponent<PlayerDashE>();
+        playerSalto=GetComponent<PlayerSaltoE>();
+        playerStats=GetComponent<PlayerStatsE>();
         playerInput = GetComponent<PlayerInput>();
         rbPlayer = GetComponent<Rigidbody2D>();
     }
@@ -78,13 +94,8 @@ public class MovimientoP : MonoBehaviour
     #region Movimiento
     private void Move()
     {
-        if (playerInput.actions["Aim"].IsPressed()) {
-            velocidadActual = velocidadPlayerApuntando;
-        }
-        else
-        {
-            velocidadActual = velocidadPlayer;
-        }
+        checarVelocidad();
+
         Vector2 moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
         //anim.SetFloat("Movimiento", MathF.Abs(moveInput.x));
         if (!apuntando)
@@ -95,6 +106,8 @@ public class MovimientoP : MonoBehaviour
         rbPlayer.velocity = new Vector2(moveInput.x * velocidadActual, rbPlayer.velocity.y);
 
     }
+
+   
 
     #endregion
     //=========================================================================================================================
@@ -185,6 +198,55 @@ public class MovimientoP : MonoBehaviour
     //=========================================================================================================================
 
 
+    //=================================================== Player "Velocidad" ==================================================
+    #region player velocidades
+
+
+    private void checarVelocidad()
+    {
+        if (slowed && !botasMejoradas)
+        {
+            velocidadActual = velocidadPlayerSlowed;
+        }
+        else if (slowed && botasMejoradas)
+        {
+            velocidadActual = velocidadPlayer;
+        }
+        else if (!slowed && rifleApuntando)
+        {
+            velocidadActual = velocidadPlayerApuntandoRifle;
+        }
+        else if (playerInput.actions["Aim"].IsPressed() && !slowed)
+        {
+            velocidadActual = velocidadPlayerApuntando;
+        }
+        else if (!slowed && !playerInput.actions["Aim"].IsPressed())
+        {
+            velocidadActual = velocidadPlayer;
+        }
+      
+    }
+
+
+    public void slowPlayer()
+    {
+        slowed = true;
+    }
+    public void NOslowPlayer()
+    {
+        slowed = false;
+    }
+
+
+    public void RegresarVelocidad() {
+        velocidadActual = velocidadPlayer;
+    }
+
+    #endregion
+
+
+    //=========================================================================================================================
+
     //============================================*colisiones==================================================================
     #region COLISIONES
     private void OnCollisionEnter2D(Collision2D collision)
@@ -218,7 +280,10 @@ public class MovimientoP : MonoBehaviour
     //=============================================== Cachar Datos ============================================================
     #region CACHAR DATOS
 
-  
+    public void cacharApuntadoRifle(bool ca)//si esta apuntado el rifle
+    {
+        rifleApuntando = ca;
+    }
     public void setEstadoPlayer(bool estado)
     {
         PlayerVivo = estado;
@@ -234,8 +299,49 @@ public class MovimientoP : MonoBehaviour
         sePuedeMover = puedeMoverse;
     }
 
-    #endregion      
+    #endregion
 
     //=========================================================================================================================
 
+
+
+    //========================================= EQUIPABLES =============================================
+    #region cachar Botas Equipadas
+    //se andar a llamar con botones, o los equipables
+    public void cacharBotas(bool botas)//se recibe desde un lado aqui
+    {
+        botasEquiapdas = botas;
+        playerStats.cacharBotasMejoradas(botas);//caminar sin recibir daño
+    }
+
+
+    public void cacharBotasMejoradas(bool botas)
+    {
+        botasMejoradas = botas;
+        playerStats.cacharBotasMejoradas(botas);//caminar sin recibir daño
+        playerSalto.cacharBotasMejoradas(botas);//caminar y saltar con libertas
+    }
+
+
+    #endregion
+
+
+    #region Dasheo
+    public void EquiparDash(bool dashDes)
+    {
+        playerDash.cacharDashDesbloqueado(dashDes);
+
+    }
+    public void EquiparDashDanio(bool dashDanio)
+    {
+        playerDash.cacharDashDanioDesbloqueado(dashDanio);
+
+    }
+
+    #endregion
+
+
+    //===================================================================================================
 }
+
+

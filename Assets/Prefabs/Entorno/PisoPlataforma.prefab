@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 6704467438570567822}
   - component: {fileID: 3854643045688643177}
   - component: {fileID: 7480760832594639787}
-  m_Layer: 6
-  m_Name: pisoProvisional (1)
-  m_TagString: Untagged
+  m_Layer: 3
+  m_Name: PisoPlataforma
+  m_TagString: Piso
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.67, y: 0.44, z: 0}
-  m_LocalScale: {x: 18.15, y: 1, z: 1}
+  m_LocalScale: {x: 13.592023, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

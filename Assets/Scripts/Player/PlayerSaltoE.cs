@@ -13,13 +13,17 @@ public class PlayerSaltoE : MonoBehaviour
     //PlayerStatsE playerStats;
     PlayerDashE playerDash;
     [Header("Salto")]
-    [SerializeField] float fuerzaSalto;
+    [SerializeField] bool botasMejoradas;
+    [SerializeField] float fuerzaSaltoActual;
+    [SerializeField] float fuerzaSaltoMaxima;
+    [SerializeField] float fuerzaSaltoMinima;
     [SerializeField] Transform refPie;
     [SerializeField] float radioDetectarPuedeSalto;
     [SerializeField] LayerMask QueEsPiso;
  
     [Range(0, 1)][SerializeField] float multiplicadorCancelarSalto;
     [SerializeField] float multiplicadorGravedad;
+    [SerializeField] bool atascado;//si estan en el piso malo
     bool saltar;
     bool enPiso;
     float escalaGravedad;
@@ -77,6 +81,13 @@ public class PlayerSaltoE : MonoBehaviour
 
     void detectarSalto()
     {
+        if (atascado&&!botasMejoradas) {//si esta atascado el salto es minimo
+            fuerzaSaltoActual = fuerzaSaltoMinima;
+        }
+        else
+        {
+            fuerzaSaltoActual = fuerzaSaltoMaxima;
+        }
 
         if (playerInput.actions["Jump"].IsInProgress() )
         {
@@ -120,7 +131,7 @@ public class PlayerSaltoE : MonoBehaviour
 
     public void Saltar()
     {
-        rbPlayer.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
+        rbPlayer.AddForce(Vector2.up * fuerzaSaltoActual, ForceMode2D.Impulse);
 
         enPiso = false;
         saltar = false;
@@ -140,6 +151,10 @@ public class PlayerSaltoE : MonoBehaviour
     }
 
 
+    public void estadoPlayerAtascado(bool atas) {
+        atascado = atas;
+    }
+
     private void OnDrawGizmosSelected()
     {
         // Establecer el color del gizmo
@@ -148,4 +163,16 @@ public class PlayerSaltoE : MonoBehaviour
         // Dibujar el círculo en la posición del objeto y con el radio especificado
         Gizmos.DrawWireSphere(refPie.position, radioDetectarPuedeSalto);
     }
+
+    //===================================================================================================
+    #region cachar Botas Equipadas
+
+    public void cacharBotasMejoradas(bool botas) {
+        botasMejoradas = botas;
+    }
+
+
+
+    #endregion
+    //===================================================================================================
 }

@@ -126,13 +126,13 @@ public class PlayerDashE : MonoBehaviour
     }
     public bool isDashingReturn() {
         return isdashing;
-    } 
+    }
     #endregion
     //=====================================================================================================================================
 
 
     //================================================= SET VALORES ==================================================================
-        //cargar datos
+    //cargar datos
     #region SET VALORES 
 
     //public void SetVelocidadDash(float fuerzaDash)
@@ -140,9 +140,13 @@ public class PlayerDashE : MonoBehaviour
     //    dashVelocidad = fuerzaDash;
     //}
 
-    void setDashDesbloqueado(bool DD)
+    public void cacharDashDesbloqueado(bool DD)
     {
         dashDesbloqueado = DD;
+    }
+    public void cacharDashDanioDesbloqueado(bool DD)
+    {
+        danioDashEquipado = DD;
     }
     #endregion
     //=====================================================================================================================================
