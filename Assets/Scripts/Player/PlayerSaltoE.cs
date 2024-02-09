@@ -164,6 +164,9 @@ public class PlayerSaltoE : MonoBehaviour
         Gizmos.DrawWireSphere(refPie.position, radioDetectarPuedeSalto);
     }
 
+    public bool retornarEnPiso() {
+        return enPiso;
+    }
     //===================================================================================================
     #region cachar Botas Equipadas
 

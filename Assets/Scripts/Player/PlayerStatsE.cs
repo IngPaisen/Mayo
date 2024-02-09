@@ -128,7 +128,7 @@ public class PlayerStatsE : MonoBehaviour
 
     #region MODIFICAR VALORES
 
-    public void RestarVida(float danioRecibido)
+    public void playerDanado(float danioRecibido)
     {
 
         vidaActual -= danioRecibido;
@@ -149,6 +149,16 @@ public class PlayerStatsE : MonoBehaviour
 
         }
     }
+
+    //daño si esta cerca de algun enemigoq ue emane algo malo
+    public void enAreaDañina(float danioParaPlayer)
+    {
+    
+        vidaActual -= Time.deltaTime * danioParaPlayer;
+
+        
+    }
+
 
     public void restaMayo(float costoDisparo)
     {

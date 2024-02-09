@@ -6,11 +6,13 @@ using UnityEngine.InputSystem;
 public class ImpulsoEscopeta : MonoBehaviour
 {
     [SerializeField] PlayerInput playerI;
+    [SerializeField] PlayerSaltoE playerSalto;
     [SerializeField] Rigidbody2D rbPlayer;
     [SerializeField] float fuerzasalto;
     // Start is called before the first frame update
     void Start()
     {
+        playerSalto = GetComponentInParent<PlayerSaltoE>();
         rbPlayer = GetComponentInParent<Rigidbody2D>();
     }
 
@@ -29,7 +31,7 @@ public class ImpulsoEscopeta : MonoBehaviour
         Vector2 directionToMouse = (mousePosition - transform.position).normalized;
 
         // Detectar si la dirección es hacia abajo
-        if (directionToMouse.y < 0&& playerI.actions["Aim"].IsPressed())
+        if (directionToMouse.y < 0&& playerI.actions["Aim"].IsPressed()&&!playerSalto.retornarEnPiso())
         {
             Debug.Log("Apuntando hacia abajo");
             Jump(fuerzasalto);

@@ -26,6 +26,7 @@ public class TipoDisparo : MonoBehaviour
 
     PlayerInput playerInput;
     PlayerStatsE playerStats;
+    PlayerSaltoE playerSalto;
 
     [SerializeField] GameObject ataque;
     [SerializeField] float costoDisparoMayo;
@@ -59,6 +60,7 @@ public class TipoDisparo : MonoBehaviour
         if (impulso) { escoepta = GetComponent<ImpulsoEscopeta>(); }
         playerStats = GetComponentInParent<PlayerStatsE>();
         playerInput = GetComponentInParent<PlayerInput>();
+        playerSalto = GetComponentInParent<PlayerSaltoE>();
         rbPlayer = GetComponentInParent<Rigidbody2D>();
 
     }
@@ -135,17 +137,16 @@ public class TipoDisparo : MonoBehaviour
                 escoepta.impusloEscopeta();
             }
 
-            //retroceso Falta mejorarlo
             if (transforPadre.localScale.x > 0)
             {
-                //rbPlayer.AddForce(-direccion * retroceso, ForceMode2D.Force);
+                if (playerSalto.retornarEnPiso()) rbPlayer.AddForce(-direccion * retroceso, ForceMode2D.Force);
 
                 rbBalaN.AddForce(origen.right * potenciaDeDisparo);
             }
             else if (transforPadre.localScale.x < 0)
             {
-                //rbPlayer.AddForce(direccion * retroceso, ForceMode2D.Force);   
-                
+                if (playerSalto.retornarEnPiso()) rbPlayer.AddForce(direccion * retroceso, ForceMode2D.Force);
+
 
                 rbBalaN.AddForce(origen.right * -potenciaDeDisparo/*, ForceMode2D.Impulse*/);
             }

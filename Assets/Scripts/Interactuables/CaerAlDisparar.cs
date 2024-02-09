@@ -29,7 +29,7 @@ public class CaerAlDisparar : MonoBehaviour
             collision.transform.GetComponent<BaseEnemy>().danarEnemigo(danioAEnemigos);//dañar al enemigo
             checarImpactos();
         }
-        else if(collision.transform.CompareTag("piso"))
+        else if(collision.transform.CompareTag("Piso"))
         {//si impacta con otra cosa
             //checarImpactos();
             Destroy(gameObject); //animacion de destuiccion

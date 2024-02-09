@@ -25,9 +25,11 @@ public class MovimientoP : MonoBehaviour
     [SerializeField]float velocidadActual;
     [SerializeField] bool sePuedeMover = true;
     [SerializeField] bool slowed;
-  
 
+    [Header("Rebote")] 
     [SerializeField] Vector2 velocidadRebote;
+    [SerializeField] float tiempoInvulnerable;
+
     Rigidbody2D rbPlayer;
 
     [SerializeField] bool PlayerVivo;
@@ -190,9 +192,26 @@ public class MovimientoP : MonoBehaviour
 
     //================================================== Player Golpeado ======================================================
     #region PLAYER GOLPEADO 
-    public void Rebote(Vector2 puntoGolpe)
+
+    public void recibirDano(float damage) {
+        playerStats.playerDanado(damage);
+    }
+    public void Rebote(Vector2 knockbackDirection)
     {
-        rbPlayer.velocity = new Vector2((-velocidadRebote.x * puntoGolpe.x), velocidadRebote.y);
+
+        rbPlayer.velocity = new Vector2(-velocidadRebote.x * knockbackDirection.x, velocidadRebote.y);
+        StartCoroutine(playerInvulnerable());
+    }
+
+    IEnumerator playerInvulnerable()
+    {
+
+        Physics2D.IgnoreLayerCollision(8, 6, true);
+
+        yield return new WaitForSeconds(tiempoInvulnerable);
+
+        Physics2D.IgnoreLayerCollision(8, 6, false);
+
     }
     #endregion
     //=========================================================================================================================
@@ -255,6 +274,10 @@ public class MovimientoP : MonoBehaviour
         {
 
             Debug.Log("Player Dañado");//Restar vida en playerstats
+        }
+        else if (collision.transform.CompareTag("DamageAlPlayer")) {
+
+            recibirDano(collision.transform.GetComponent<ObjetoDanino>().returnarDaño());
         }
     }
     #endregion

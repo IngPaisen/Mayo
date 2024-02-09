@@ -48,7 +48,7 @@ public class SniperAlejarCamara : MonoBehaviour
                 float tamañoOrtograficoActual = camaraVirtualCamera.m_Lens.OrthographicSize;
                 float nuevoTamañoOrtografico = Mathf.Lerp(tamañoOrtograficoActual, camaraInicial, Time.deltaTime * velocidadTransicion);
                 camaraVirtualCamera.m_Lens.OrthographicSize = nuevoTamañoOrtografico;
-                movePlayer.cacharApuntadoRifle(false); // False indc que no está pulsao
+                movePlayer.cacharApuntadoRifle(false); // False indc que no está pulsao 
             }
         }
         else
