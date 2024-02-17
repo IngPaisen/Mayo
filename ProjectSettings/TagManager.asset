@@ -12,6 +12,7 @@ TagManager:
   - BrakeableWall
   - ObjetoSuspendido
   - Piso
+  - DamageAlPlayer
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - AtaquePlayer
   - Player
   - ObjetoSuspendido
-  - 
+  - AtaquesEnemy
   - 
   - 
   - 

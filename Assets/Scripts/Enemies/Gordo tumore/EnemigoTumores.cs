@@ -155,7 +155,7 @@ public class EnemigoTumores : EnemigoBase
 
         float velocidadInicial = velocidadEmbestida;
 
-        // Ajusta la velocidad inicial para que la embestida dure exactamente la duración especificada
+        // Ajusta la velocidadss i¿icial para que la emqsbestida dure exactamente la duración e
         float tiempoTotal = duracionEmbestida;
         float tiempoActual = 0;
         while (tiempoActual < duracionEmbestida)
@@ -191,7 +191,6 @@ public class EnemigoTumores : EnemigoBase
 
             float velocidadInicial = velocidadEmbestida;
 
-            // Ajusta la velocidad inicial para que la embestida dure exactamente la duración especificada
             float tiempoTotal = duracionEmbestida;
             float tiempoActual = 0;
             while (tiempoActual < duracionEmbestida)
@@ -228,7 +227,6 @@ public class EnemigoTumores : EnemigoBase
 
             float velocidadInicial = velocidadEmbestida;
 
-            // Ajusta la velocidad inicial para que la embestida dure exactamente la duración especificada
             float tiempoTotal = duracionEmbestida;
             float tiempoActual = 0;
             while (tiempoActual < duracionEmbestida)
