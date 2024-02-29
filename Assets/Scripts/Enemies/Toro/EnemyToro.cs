@@ -2,7 +2,7 @@ using System.Collections;
 using System.Net;
 using UnityEngine;
 
-public class EnemyToro : EnemigoBase
+public class EnemyToro : EnemigoBase 
 {
     [Header("Embestidas Toro")]
     Rigidbody2D rb;

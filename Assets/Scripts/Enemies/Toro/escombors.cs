@@ -40,7 +40,7 @@ public class escombors : MonoBehaviour
     }
 
     public float returnarDaño() {
-        return danioPlayer;
+        return danioPlayer; 
     }
 
 

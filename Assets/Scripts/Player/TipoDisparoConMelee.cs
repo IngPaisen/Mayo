@@ -12,7 +12,7 @@ public class TipoDisparoConMelee : TipoDisparo
         {
             Atacar();
         }
-        else if (playerInput.actions["AtackMelee"].IsPressed() && armaConMelee)
+        else if (playerInput.actions["AtackMelee"].IsPressed() && armaConMelee) 
         {
             AtacarMelee();
         }

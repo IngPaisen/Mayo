@@ -25,7 +25,7 @@ public class TipoDisparo : MonoBehaviour
     private bool puedeDisparar = true;
 
     [Header("Reutilizacion para Melee")]
-    [SerializeField] public bool armaConMelee;
+    [SerializeField] public  bool armaConMelee;
     [SerializeField] float ccMelee;
     [SerializeField] GameObject hitboxMelee;
     [SerializeField] float desactivarColiscionMelee;
