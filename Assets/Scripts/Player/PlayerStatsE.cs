@@ -74,10 +74,13 @@ public class PlayerStatsE : MonoBehaviour
     {
         isInvulnerable = true;
         bool originalCollisionState = Physics2D.GetIgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
+        bool originalCollisionState2 = Physics2D.GetIgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("AtaquesEnemy"));
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), true);
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("AtaquesEnemy"), true);
         yield return new WaitForSeconds(tiempoInvulnerable);
         // Restaurar el Layer del jugador para que pueda ser dañado nuevamente por los enemigos
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), originalCollisionState);
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("AtaquesEnemy"), originalCollisionState2);
         isInvulnerable = false;
     }
 

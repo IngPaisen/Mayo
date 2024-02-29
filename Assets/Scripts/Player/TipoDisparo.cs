@@ -24,12 +24,19 @@ public class TipoDisparo : MonoBehaviour
     [SerializeField] float tiempoEntreDisparo;
     private bool puedeDisparar = true;
 
-    PlayerInput playerInput;
-    PlayerStatsE playerStats;
-    PlayerSaltoE playerSalto;
+    [Header("Reutilizacion para Melee")]
+    [SerializeField] public bool armaConMelee;
+    [SerializeField] float ccMelee;
+    [SerializeField] GameObject hitboxMelee;
+    [SerializeField] float desactivarColiscionMelee;
+    public PlayerInput playerInput;
+    public PlayerStatsE playerStats;
+    public PlayerSaltoE playerSalto;
+
+    [Header("De Fuego")]
 
     [SerializeField] GameObject ataque;
-    [SerializeField] float costoDisparoMayo;
+    [SerializeField] public float costoDisparoMayo;
     [SerializeField] float retroceso;
     [SerializeField] float potenciaDeDisparo;
     [SerializeField] Transform[] origenAtaque;
@@ -86,6 +93,8 @@ public class TipoDisparo : MonoBehaviour
         if (playerInput.actions["Atack"].IsPressed() && playerStats.getMayoActual() >= costoDisparoMayo)
         {
             Atacar();
+        } else if (playerInput.actions["AtackMelee"].IsPressed() && armaConMelee) {
+            AtacarMelee();
         }
 
     }
@@ -111,7 +120,31 @@ public class TipoDisparo : MonoBehaviour
     }
 
 
+    public void AtacarMelee() {
 
+        if (puedeAtacar)
+        {
+            puedeAtacar = false;
+
+            hitboxMelee.SetActive(true);
+            //cargadorActual--;
+            Invoke("desactivarColiscion", desactivarColiscionMelee);
+
+            Invoke("ActivarCooldownMelee",ccMelee);
+
+        }
+    }
+
+    private void desactivarColiscion() { 
+        
+            hitboxMelee.SetActive(false);
+
+    }
+    private void ActivarCooldownMelee()
+    {
+        //yield return new WaitForSeconds(cooldownAtaques);
+        puedeAtacar = true;
+    }
 
     private void ActivarCooldownDisparo()
     {

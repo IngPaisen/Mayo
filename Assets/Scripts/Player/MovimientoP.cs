@@ -206,11 +206,22 @@ public class MovimientoP : MonoBehaviour
     IEnumerator playerInvulnerable()
     {
 
-        Physics2D.IgnoreLayerCollision(8, 6, true);
+        //Physics2D.IgnoreLayerCollision(8, 6, true);
+        //Physics2D.IgnoreLayerCollision(8, 10, true);
 
+        //yield return new WaitForSeconds(tiempoInvulnerable);
+
+        //Physics2D.IgnoreLayerCollision(8, 6, false);
+        ////Physics2D.IgnoreLayerCollision(8, 10, false);
+
+        //bool originalCollisionState = Physics2D.GetIgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"));
+        //bool originalCollisionState2 = Physics2D.GetIgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("AtaquesEnemy"));
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), true);
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("AtaquesEnemy"), true);
         yield return new WaitForSeconds(tiempoInvulnerable);
-
-        Physics2D.IgnoreLayerCollision(8, 6, false);
+        // Restaurar el Layer del jugador para que pueda ser dañado nuevamente por los enemigos
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), false);
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("AtaquesEnemy"), false);
 
     }
     #endregion

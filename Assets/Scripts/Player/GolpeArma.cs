@@ -5,20 +5,26 @@ using UnityEngine.InputSystem;
 
 public class GolpeArma : MonoBehaviour
 {
-    PlayerInput inputManager;
-    [SerializeField] float cooldownGolpe;
-    [SerializeField] float tiempoEnAtaque;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] float danio;
+
+
+    public float retornarDanio()
     {
-        inputManager = GetComponentInParent<PlayerInput>();
+        return danio;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (inputManager.actions["Golpe"].WasPressedThisFrame()) { 
-        
+        if (collision.transform.CompareTag("Enemy")) {
+            collision.transform.GetComponent<EnemigoBase>().recibirDaño(danio);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("Enemy"))
+        {
+            collision.transform.GetComponent<EnemigoBase>().recibirDaño(danio);
         }
     }
 }
