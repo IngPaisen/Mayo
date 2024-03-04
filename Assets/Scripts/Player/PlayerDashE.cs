@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -26,6 +27,7 @@ public class PlayerDashE : MonoBehaviour
     bool puedeMoverse = true;
     [SerializeField]bool isdashing;
     Rigidbody2D rbplayer;
+    [SerializeField] bool enPisoMalo;
     //[Header("Animations")]
     //Animator anim;
     private void Start()
@@ -55,7 +57,7 @@ public class PlayerDashE : MonoBehaviour
 
     void DetectarDash()
     {
-        if (playerinput.actions["Dash"].IsPressed() &&canDash)
+        if (playerinput.actions["Dash"].IsPressed() &&canDash &&!enPisoMalo)
         {
             canDash = false;
             StartCoroutine(HacerDash());
@@ -147,6 +149,9 @@ public class PlayerDashE : MonoBehaviour
     public void cacharDashDanioDesbloqueado(bool DD)
     {
         danioDashEquipado = DD;
+    }
+    public void actualEnPisoMalo(bool enPiso) {
+        enPisoMalo = enPiso;
     }
     #endregion
     //=====================================================================================================================================

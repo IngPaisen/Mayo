@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,9 +14,11 @@ public class EnemigoSigueSiempreAlDetectar : EnemigoBase
     [SerializeField] float tiempoEspera;
     [SerializeField] float velocidadPatrullaje;
     [SerializeField] float distancia;
+    [SerializeField] float distanciaDeteccionMuro;
     [SerializeField] private bool moviendoDer;
     [SerializeField] private bool caminando;
     [SerializeField] private bool moviendoDerecha = true; // Variable para mantener la dirección actual del movimiento del enemigo
+    [SerializeField] LayerMask capaMuro;
 
     [Header("Detectar Player")]
     [SerializeField] float velocidadChase;
@@ -70,7 +73,17 @@ public class EnemigoSigueSiempreAlDetectar : EnemigoBase
             saberADondeSeQuedoViendo();
             // Lógica para patrullar
             RaycastHit2D imfoSuelo = Physics2D.Raycast(controladorSuelo.position, Vector2.down, distancia);
+            RaycastHit2D infoMuro = Physics2D.Raycast(controladorSuelo.position, Vector2.right, distanciaDeteccionMuro, capaMuro);
+            
+            //tal vez cambiarlo para que sea por tag, en luga de capamMuro, pero idk
+
             rb.velocity = new Vector2(velocidadPatrullaje, rb.velocity.y);
+
+            if (infoMuro)
+            {
+                Girar();
+            }
+                
             if (imfoSuelo == false)
             {
                 //gira el personaje
@@ -79,6 +92,7 @@ public class EnemigoSigueSiempreAlDetectar : EnemigoBase
         }
         else if (detectado)
         {
+
             // Encuentra la posición del jugador
             player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -119,18 +133,27 @@ public class EnemigoSigueSiempreAlDetectar : EnemigoBase
         caminando = true;
 
         moviendoDer = !moviendoDer;
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 180, 0);
+        transform.localScale = new Vector3(transform.localScale.x * -1,1, 1);
         velocidadPatrullaje *= -1;
     }
 
     void saberADondeSeQuedoViendo() {
-        transform.localScale = new Vector3(1, 1, 1);
 
+        if (moviendoDer) {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+
+
+        }
     }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(controladorSuelo.transform.position, controladorSuelo.transform.position + Vector3.down * distancia);
+        Gizmos.DrawLine(controladorSuelo.transform.position, controladorSuelo.transform.position + Vector3.right * distanciaDeteccionMuro);
         Gizmos.DrawWireSphere(puntoOrigenDetector.transform.position, radioDeteccion);
         Gizmos.DrawWireSphere(puntoOrigenDetector.transform.position, radioDeteccionAlejado);
 

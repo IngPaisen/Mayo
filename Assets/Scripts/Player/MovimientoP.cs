@@ -342,6 +342,7 @@ public class MovimientoP : MonoBehaviour
     //========================================= EQUIPABLES =============================================
     #region cachar Botas Equipadas
     //se andar a llamar con botones, o los equipables
+
     public void cacharBotas(bool botas)//se recibe desde un lado aqui
     {
         botasEquiapdas = botas;
@@ -349,6 +350,7 @@ public class MovimientoP : MonoBehaviour
     }
 
 
+    //este se llama al cargar la partida
     public void cacharBotasMejoradas(bool botas)
     {
         botasMejoradas = botas;

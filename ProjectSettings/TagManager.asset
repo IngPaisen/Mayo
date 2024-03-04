@@ -13,6 +13,7 @@ TagManager:
   - ObjetoSuspendido
   - Piso
   - DamageAlPlayer
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Player
   - ObjetoSuspendido
   - AtaquesEnemy
-  - 
+  - Muro
   - 
   - 
   - 

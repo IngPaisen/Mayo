@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7922798280848889689}
   - component: {fileID: 242586671001562460}
   - component: {fileID: 1564346387570937761}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ParedQuebradiza
   m_TagString: BrakeableWall
   m_Icon: {fileID: 0}

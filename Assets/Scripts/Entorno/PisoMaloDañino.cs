@@ -9,6 +9,12 @@ public class PisoMaloDañino : MonoBehaviour
     [SerializeField]MovimientoP playerMove;
     [SerializeField]PlayerStatsE playerStats;
     [SerializeField] PlayerSaltoE playerSalto;
+    [SerializeField] PlayerDashE playerDash;
+
+    private void Start()
+    {
+        playerDash = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<PlayerDashE>();
+    }
     private void Update()
     {
         if (playerPisando) {
@@ -25,6 +31,7 @@ public class PisoMaloDañino : MonoBehaviour
             playerSalto= collision.GetComponent<PlayerSaltoE>();
             playerStats= collision.GetComponent<PlayerStatsE>();
             playerSalto.estadoPlayerAtascado(true);
+            playerDash.actualEnPisoMalo(true);
             playerPisando = true;
         }
 
@@ -36,6 +43,7 @@ public class PisoMaloDañino : MonoBehaviour
             playerPisando = false;
             //playerMove.RegresarVelocidad();
             playerSalto.estadoPlayerAtascado(false);
+            playerDash.actualEnPisoMalo(false);
 
             playerMove.NOslowPlayer();
         }
