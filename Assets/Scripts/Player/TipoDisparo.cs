@@ -18,6 +18,7 @@ public class TipoDisparo : MonoBehaviour
     [SerializeField] float cooldownAtaques;
     [SerializeField] float danioAtaque;
     [SerializeField] private bool puedeAtacar = true;
+    [SerializeField] public PlayerStatsE playerStats;
     [Header("Rafaga?")]
     [SerializeField] bool rafagas;
     [SerializeField] int balasPorRafaga;
@@ -30,7 +31,6 @@ public class TipoDisparo : MonoBehaviour
     [SerializeField] GameObject hitboxMelee;
     [SerializeField] float desactivarColiscionMelee;
     public PlayerInput playerInput;
-    public PlayerStatsE playerStats;
     public PlayerSaltoE playerSalto;
 
     [Header("De Fuego")]
@@ -60,15 +60,21 @@ public class TipoDisparo : MonoBehaviour
 
     private void Awake()
     {
-    }
-    void Start()
-    {
         if (!rafagas) { balasPorRafaga = 0; tiempoEntreDisparo = 0; }
         if (impulso) { escoepta = GetComponent<ImpulsoEscopeta>(); }
         playerStats = GetComponentInParent<PlayerStatsE>();
         playerInput = GetComponentInParent<PlayerInput>();
         playerSalto = GetComponentInParent<PlayerSaltoE>();
         rbPlayer = GetComponentInParent<Rigidbody2D>();
+    }
+
+    private void OnEnable()
+    {
+        playerStats.recibirCostoDeMAyonesa(costoDisparoMayo);
+    }
+    void Start()
+    {
+ 
 
     }
 
@@ -79,6 +85,8 @@ public class TipoDisparo : MonoBehaviour
         {
             //detectarRecargaArma();
             detectarAtaque();
+            playerStats.recibirCostoDeMAyonesa(costoDisparoMayo);
+
         }
     }
 

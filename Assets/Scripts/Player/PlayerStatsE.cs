@@ -15,6 +15,8 @@ public class PlayerStatsE : MonoBehaviour
     [SerializeField] float vidaTotal;
     [SerializeField] bool playerVivo = true;
     [SerializeField] float mayonesaActual;
+    [SerializeField] float costoMayonesa;
+    [SerializeField] InterfaProvisional interfaz;
     //[Header("Daño Recibido")]
     bool isInvulnerable;
 
@@ -23,6 +25,7 @@ public class PlayerStatsE : MonoBehaviour
     private void Awake()
     {
         playerMove = GetComponent<MovimientoP>();
+        interfaz=FindAnyObjectByType<InterfaProvisional>(); 
         MandarDatosPlayerMovemnet();
     }
 
@@ -30,6 +33,10 @@ public class PlayerStatsE : MonoBehaviour
     void Start()
     {
         if (vidaActual > 0) playerVivo = true; else playerVivo = false;
+        interfaz.actualizarVidaMaxima(vidaTotal);
+        actualizarMayonesaActualInterfaz();
+        interfaz.actualizarVida(vidaActual);
+
     }
 
     // Update is called once per frame
@@ -135,6 +142,9 @@ public class PlayerStatsE : MonoBehaviour
     {
 
         vidaActual -= danioRecibido;
+        interfaz.actualizarVida(vidaActual);
+        Debug.Log("Danio plano");
+
     }
     public void RestarVidaRebote(float danioRecibido, Vector2 posicion)//falta ver si si o si no
     {
@@ -147,8 +157,17 @@ public class PlayerStatsE : MonoBehaviour
 
 
     public void enPisoDanino(float danioParaPlayer) {
+
         if (!botasEquipadas) { 
             vidaActual -= Time.deltaTime * danioParaPlayer;
+            Debug.Log("Danio piuso");
+            interfaz.actualizarVida(vidaActual);
+
+        }
+        else
+        {
+            vidaActual = vidaActual;
+            interfaz.actualizarVida(vidaActual);
 
         }
     }
@@ -158,19 +177,48 @@ public class PlayerStatsE : MonoBehaviour
     {
     
         vidaActual -= Time.deltaTime * danioParaPlayer;
+        interfaz.actualizarVida(vidaActual);
+        Debug.Log("DaniO  areaDanio");
 
-        
+
     }
 
 
     public void restaMayo(float costoDisparo)
     {
         mayonesaActual -= costoDisparo;
+        actualizarMayonesaActualInterfaz();
     }
 
     #endregion
     //=====================================================================================================================
 
+
+    public void recibirCostoDeMAyonesa(float mayonesa) {
+        costoMayonesa = mayonesa;
+        interfaz.actualizarCostoMayonesa(mayonesa);
+    }
+
+    //===================================================================================================
+    #region mandar datos al ui
+
+
+    public void hacerDanioPlayerInterfaz()
+    {
+        interfaz.actualizarVida(vidaActual);
+    }
+
+    public void actualizarMayonesaActualInterfaz()
+    {
+        interfaz.actualizarMayonesaActual(mayonesaActual);
+    }
+    public void actualizarMayonesaActualInterfaz(float mayo)
+    {
+        interfaz.actualizarCostoMayonesa(mayo);
+    }
+
+    #endregion
+    //=====================================================================================================================
 
 
     //===================================================================================================
@@ -182,6 +230,9 @@ public class PlayerStatsE : MonoBehaviour
     }
 
 
+    public bool retornarBotas() {
+        return botasEquipadas;
+    }
 
     #endregion
     //===================================================================================================

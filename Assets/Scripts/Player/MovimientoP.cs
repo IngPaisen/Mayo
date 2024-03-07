@@ -308,6 +308,9 @@ public class MovimientoP : MonoBehaviour
         return sePuedeMover;
     }
 
+    public bool retornarBotasMejoradas() {
+        return botasMejoradas;
+    }
     #endregion
     //=========================================================================================================================
 

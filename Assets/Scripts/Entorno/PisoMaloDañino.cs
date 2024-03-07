@@ -14,11 +14,14 @@ public class PisoMaloDañino : MonoBehaviour
     private void Start()
     {
         playerDash = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<PlayerDashE>();
+
     }
     private void Update()
     {
-        if (playerPisando) {
+        
+        if (playerPisando&&!playerMove.retornarApuntando()) {
             playerMove.slowPlayer();
+            
             playerStats.enPisoDanino(danoPlayerEnPiso);
         }
 

@@ -25,6 +25,7 @@ public class PlayerDashE : MonoBehaviour
     private bool canDash = true; // Bandera para controlar si el jugador está realizando un dash
     float gravedadNormal; //para que a la hora de dashear no tenga gravedad, este numero sirve para volverlo a como estaba
     bool puedeMoverse = true;
+    [SerializeField] bool botasEquipadas;
     [SerializeField]bool isdashing;
     Rigidbody2D rbplayer;
     [SerializeField] bool enPisoMalo;
@@ -57,7 +58,14 @@ public class PlayerDashE : MonoBehaviour
 
     void DetectarDash()
     {
-        if (playerinput.actions["Dash"].IsPressed() &&canDash &&!enPisoMalo)
+        if (playerinput.actions["Dash"].IsPressed() && canDash && !enPisoMalo)
+        {
+            canDash = false;
+            StartCoroutine(HacerDash());
+            StartCoroutine(cooldownParaDash());
+            playerStats.PlayerInvulnerable(dashDuracion);
+        }
+        else if (playerinput.actions["Dash"].IsPressed() && canDash && !enPisoMalo&&botasEquipadas)
         {
             canDash = false;
             StartCoroutine(HacerDash());
@@ -152,6 +160,10 @@ public class PlayerDashE : MonoBehaviour
     }
     public void actualEnPisoMalo(bool enPiso) {
         enPisoMalo = enPiso;
+    }
+
+    public void cacharBotas(bool b) {
+        botasEquipadas = b;
     }
     #endregion
     //=====================================================================================================================================

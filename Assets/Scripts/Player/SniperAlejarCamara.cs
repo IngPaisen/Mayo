@@ -21,7 +21,10 @@ public class SniperAlejarCamara : MonoBehaviour
         movePlayer = GetComponentInParent<MovimientoP>();
         playerinput = GetComponentInParent<PlayerInput>();
     }
-
+    private void Awake()
+    {
+        camaraVirtualCamera=FindAnyObjectByType<CinemachineVirtualCamera>();
+    }
 
     private void Update()
     {

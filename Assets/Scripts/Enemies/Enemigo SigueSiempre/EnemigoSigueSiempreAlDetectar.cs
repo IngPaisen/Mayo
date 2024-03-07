@@ -62,7 +62,7 @@ public class EnemigoSigueSiempreAlDetectar : EnemigoBase
         if (playerAlejado != true)
         {
             detectado = false;
-            Debug.Log("salio");
+            //Debug.Log("salio");
         }
 
     }

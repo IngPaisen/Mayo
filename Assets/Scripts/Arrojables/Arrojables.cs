@@ -23,12 +23,20 @@ public class Arrojables : MonoBehaviour
 
     //============================================== METODOS UNITY =========================================================
     #region METODOS UNITY
+
+    private void Awake()
+    {
+        sp = GetComponent<SpriteRenderer>();
+        playerStats = GetComponentInParent<PlayerStatsE>();
+        playerinput = GetComponentInParent<PlayerInput>();
+        lineRenderer = GetComponent<LineRenderer>();
+    }
+    private void OnEnable()
+    {
+    }
     void Start()
     {
-        sp=GetComponent<SpriteRenderer>();
-        playerStats=GetComponentInParent<PlayerStatsE>();
-        playerinput=GetComponentInParent<PlayerInput>();    
-        lineRenderer = GetComponent<LineRenderer>();
+            //tal vez llamar el recibirmayo en playerstats
     }
 
     void Update()
@@ -40,6 +48,7 @@ public class Arrojables : MonoBehaviour
         if (playerStats.getMayoActual()>=costoMayo)
         {
             sp.enabled = true;
+            playerStats.recibirCostoDeMAyonesa(costoMayo);
 
 
             if (!estoyDisparando && playerinput.actions["Aim"].IsPressed())

@@ -45,7 +45,7 @@ public class Armas : MonoBehaviour
             {
                 Debug.LogError("El objeto 'arma' no está asignado en el inspector!");
             }
-            CambioDeArmas();
+            //CambioDeArmas();
         }
     }
 
@@ -123,7 +123,22 @@ public class Armas : MonoBehaviour
 
     //============================================== PLAYER DATA ======================================================
     #region PLAYER DATA
-    
+
     #endregion
     //=================================================================================================================
+
+
+    //============================================== PLAYER ARMAS =====================================================
+    #region PLAYER ARMAS
+
+    public void EquiparArma(int arma)
+    {
+        armaEquipada = arma;
+    }
+
+    #endregion
+    //=================================================================================================================
+
+
+
 }
